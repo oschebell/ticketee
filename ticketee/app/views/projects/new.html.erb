@@ -1,3 +1,14 @@
-def new
-@project = Project.new
-end
+<h1>New Project</h1>
+<%= form_for(@project) do |f| %>
+  <p>
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </p>
+
+  <p>
+    <%= f.label :description %><br>
+    <%= f.text_field :description %>
+  </p>
+
+  <%= f.submit %>
+<% end %>
