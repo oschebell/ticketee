@@ -1,33 +1,30 @@
 <div id="ticket">
-    <header>
-      <h1><%= @project.name %></h1>
-    </header>
-    <header>
-      <h2><%= @ticket.name %></h2>
-</header>
-    <%= simple_format(@ticket.description) %>
-  </div>
+  <header>
+    <h1><%= @project.name %></h1>
+  </header>
 
   <header>
-    <table id="attributes">
+    <h2><%= @ticket.name %></h2>
+
+    <ul class="actions">
+      <li><%= link_to "Edit Ticket", [:edit, @project, @ticket],
+        class: "edit" %></li>
+      <li><%= link_to "Delete Ticket", [@project, @ticket], method: :delete,
+        data: { confirm: "Are you sure you want to delete this ticket?"},
+        class: "delete" %></li>
+    </ul>
+  </header>
+
+  <table id="attributes">
     <tr>
       <th>Author:</th>
       <td><%= @ticket.author.email %></td>
     </tr>
     <tr>
-      <th>Created: </th>
-      <td> <%=  time_ago_in_words(@ticket.created_at) %> ago</td>
+      <th>Created:</th>
+      <td><%= time_ago_in_words(@ticket.created_at) %> ago</td>
     </tr>
   </table>
-    <h2><%= @ticket.name %></h2>
-    <ul class="actions">
-      <li><%= link_to "Edit Ticket", [:edit, @project, @ticket], #edit_project_ticket_path(@project, @ticket) This is the same thing!
-        class: "edit" %></li>
-    </ul>
 
-
-</header>
-
-<li><%= link_to "Delete Ticket", [@project, @ticket], method: :delete,
-    data: { confirm: "Are you sure you want to delete this ticket?"},
-     class: "delete" %></li>
+  <%= simple_format(@ticket.description) %>
+</div>
