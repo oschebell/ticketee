@@ -2,9 +2,13 @@
 <h1>Projects</h1>
 </header>
 
-<ul class="actions">
-  <li><%= link_to "New Project", new_admin_project_path, class: "new" %></li>
-</ul>
+<% admins_only do %>
+    <ul class="actions">
+      <li>
+        <%= link_to "New Project", new_admin_project_path, class: "new" %>
+      </li>
+    </ul>
+<% end %>
 
 <div id="projects">
   <% @projects.each do |project| %>
