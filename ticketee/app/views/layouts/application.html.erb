@@ -8,6 +8,7 @@
   <% else %>
     Ticketee
   <% end %>
+
 </title>
 
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
@@ -30,7 +31,7 @@
       <div class="collapse navbar-collapse" id="collapse">
 
         <ul class="nav navbar-nav">
-          
+
             <% if user_signed_in? %>
             <div class="navbar-right">
               <p class="navbar-text">
@@ -44,8 +45,17 @@
             </div>
             <% end %>
 
-          <li class="<%= "active" if current_page?("/") %>">
-            <%= link_to "Home", root_path %>
+
+          <ul class="nav navbar-nav">
+              <li class="<%= "active" if current_page?("/") %>">
+                <%= link_to "Home", root_path %>
+              </li>
+              <% admins_only do %>
+                <li>
+                  <%= link_to "Admin", admin_root_path %>
+                </li>
+              <% end %>
+
 
           <% unless user_signed_in? %>
             <li class="<%= "active" if current_page?("/users/sign_up") %>">
