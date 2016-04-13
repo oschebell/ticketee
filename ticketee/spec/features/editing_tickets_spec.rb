@@ -5,11 +5,13 @@ RSpec.feature "Users can edit existing tickets" do
     let(:project) { FactoryGirl.create(:project) }
     let(:ticket) do
       FactoryGirl.create(:ticket, project: project, author: author)
-    end
+      end
+
     before do
       visit project_ticket_path(project, ticket)
       click_link "Edit Ticket"
-end
+    end
+
     scenario "with valid attributes" do
       fill_in "Name", with: "Make it really shiny!"
       click_button "Update Ticket"
@@ -17,10 +19,12 @@ end
       within("#ticket h2") do
         expect(page).to have_content "Make it really shiny!"
         expect(page).not_to have_content ticket.name
-end end
+    end
+  end
+
     scenario "with invalid attributes" do
       fill_in "Name", with: ""
       click_button "Update Ticket"
       expect(page).to have_content "Ticket has not been updated."
     end
-end
+  end
