@@ -2,18 +2,8 @@ class Admin::UsersController < Admin::ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy, :archive]
 
   def index
-      @users = User.excluding_archived.order(:email)
+    @users = User.excluding_archived.order(:email)
   end
-
-  def archive
-    if @user == current_user
-      flash[:alert] = "You cannot archive yourself!"
-    else
-      @user.archive
-      flash[:notice] = "User has been archived."
-    end
-    redirect_to admin_users_path
-end
 
   def show
     #empty
@@ -43,23 +33,31 @@ end
 
   def create
     @user = User.new(user_params)
-  if @user.save
-    flash[:notice] = "User has been created."
+    if @user.save
+      flash[:notice] = "User has been created."
+      redirect_to admin_users_path
+    else
+      flash.now[:alert] = "User has not been created."
+      render "new"
+    end
+  end
+
+  def archive
+    if @user == current_user
+      flash[:alert] = "You cannot archive yourself!"
+    else
+      @user.archive
+      flash[:notice] = "User has been archived."
+    end
     redirect_to admin_users_path
-  else
-    flash.now[:alert] = "User has not been created."
-    render "new"
-  end
-end
-
-
-
-private
-  def user_params
-    params.require(:user).permit(:email, :password, :admin)
   end
 
-  def set_user
-    @user = User.find(params[:id])
-  end
+  private
+    def user_params
+      params.require(:user).permit(:email, :password, :admin)
+    end
+
+    def set_user
+      @user = User.find(params[:id])
+    end
 end
