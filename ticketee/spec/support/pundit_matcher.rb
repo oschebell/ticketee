@@ -13,4 +13,4 @@ RSpec::Matchers.define :permit_action do |action|
         "performing :#{action}? on #{policy.record}."
     end
 end
-#WHAT THE FUCK
+# FHR
